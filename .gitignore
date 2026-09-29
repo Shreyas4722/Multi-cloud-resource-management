@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.DS_Store
+
+# runtime data
+*.db
+*.sqlite
+*.sqlite3
+config.yaml
+/data/
+
+# exports
+*.csv.export
+recommendations_export.csv

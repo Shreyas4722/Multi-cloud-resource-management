@@ -1,0 +1,57 @@
+{
+  "_note": "Approximate on-demand hourly reference prices in USD, for demo data generation and the oversized-instance rule's size-down savings estimate. Not live pricing; always label as approximate in the dashboard.",
+  "aws": {
+    "compute": {
+      "t3.2xlarge": { "hourly": 0.3328, "next_smaller": "t3.xlarge" },
+      "t3.xlarge": { "hourly": 0.1664, "next_smaller": "t3.large" },
+      "t3.large": { "hourly": 0.0832, "next_smaller": "t3.medium" },
+      "t3.medium": { "hourly": 0.0416, "next_smaller": "t3.small" },
+      "t3.small": { "hourly": 0.0208, "next_smaller": "t3.micro" },
+      "t3.micro": { "hourly": 0.0104, "next_smaller": null },
+      "m5.2xlarge": { "hourly": 0.384, "next_smaller": "m5.xlarge" },
+      "m5.xlarge": { "hourly": 0.192, "next_smaller": "m5.large" },
+      "m5.large": { "hourly": 0.096, "next_smaller": null },
+      "r5.xlarge": { "hourly": 0.252, "next_smaller": "r5.large" },
+      "r5.large": { "hourly": 0.126, "next_smaller": null }
+    },
+    "storage": {
+      "gp3": { "hourly_per_gb": 0.000110 },
+      "gp2": { "hourly_per_gb": 0.000137 },
+      "io1": { "hourly_per_gb": 0.000178 }
+    }
+  },
+  "azure": {
+    "compute": {
+      "Standard_D8s_v5": { "hourly": 0.384, "next_smaller": "Standard_D4s_v5" },
+      "Standard_D4s_v5": { "hourly": 0.192, "next_smaller": "Standard_D2s_v5" },
+      "Standard_D2s_v5": { "hourly": 0.096, "next_smaller": "Standard_B2s" },
+      "Standard_B2ms": { "hourly": 0.0832, "next_smaller": "Standard_B2s" },
+      "Standard_B2s": { "hourly": 0.0416, "next_smaller": "Standard_B1s" },
+      "Standard_B1s": { "hourly": 0.0104, "next_smaller": null },
+      "Standard_E4s_v5": { "hourly": 0.252, "next_smaller": "Standard_E2s_v5" },
+      "Standard_E2s_v5": { "hourly": 0.126, "next_smaller": null }
+    },
+    "storage": {
+      "Premium_LRS": { "hourly_per_gb": 0.000164 },
+      "StandardSSD_LRS": { "hourly_per_gb": 0.000110 },
+      "Standard_LRS": { "hourly_per_gb": 0.000055 }
+    }
+  },
+  "gcp": {
+    "compute": {
+      "n2-standard-8": { "hourly": 0.3880, "next_smaller": "n2-standard-4" },
+      "n2-standard-4": { "hourly": 0.1940, "next_smaller": "n2-standard-2" },
+      "n2-standard-2": { "hourly": 0.0970, "next_smaller": "e2-medium" },
+      "e2-medium": { "hourly": 0.0335, "next_smaller": "e2-small" },
+      "e2-small": { "hourly": 0.0168, "next_smaller": "e2-micro" },
+      "e2-micro": { "hourly": 0.0084, "next_smaller": null },
+      "n2-highmem-4": { "hourly": 0.2620, "next_smaller": "n2-highmem-2" },
+      "n2-highmem-2": { "hourly": 0.1310, "next_smaller": null }
+    },
+    "storage": {
+      "pd-ssd": { "hourly_per_gb": 0.000234 },
+      "pd-balanced": { "hourly_per_gb": 0.000137 },
+      "pd-standard": { "hourly_per_gb": 0.000055 }
+    }
+  }
+}
