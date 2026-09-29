@@ -1,0 +1,3 @@
+UsageDate,Cost,ServiceName,ResourceId,ResourceGroup,Currency
+2026-09-01,45.20,Virtual Machines,vm-web-01,web-app,USD
+2026-09-02,46.10,Virtual Machines,vm-web-01,web-app,USD

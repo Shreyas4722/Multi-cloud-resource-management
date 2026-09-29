@@ -1,0 +1,2 @@
+usage_start_date,cost,service_description,resource_name,project_id,currency
+2026-09-01,30.00,Compute Engine,instance-1,data-platform,USD

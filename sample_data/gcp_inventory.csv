@@ -1,0 +1,3 @@
+resource_name,resource_type,zone,status,machine_type,labels,creation_timestamp
+instance-1,Compute Engine,us-central1,running,e2-medium,"project=data-platform;owner=mei;environment=staging",2026-02-01
+disk-1,Persistent Disk,us-central1,unattached,pd-ssd,"project=data-platform",2026-02-01

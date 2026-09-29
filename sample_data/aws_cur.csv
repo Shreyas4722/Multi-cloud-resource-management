@@ -1,0 +1,5 @@
+usage_date,resource_id,service,project,amount,currency
+2026-09-01,i-0123456789abcdef0,EC2,web-app,4.10,USD
+2026-09-02,i-0123456789abcdef0,EC2,web-app,4.15,USD
+2026-09-01,vol-0abc123def456789,EBS,web-app,0.80,USD
+2026-09-02,vol-0abc123def456789,EBS,web-app,0.80,USD
