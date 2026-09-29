@@ -197,13 +197,17 @@ class CloudLens:
         group_by: str = "provider",
         start_date: date | None = None,
         end_date: date | None = None,
+        providers: list[str] | None = None,
     ) -> pd.DataFrame:
         """Return total cost grouped by "provider", "service", "project",
         "region" or "date", sorted by total cost descending (or by date
-        ascending when grouping by date)."""
+        ascending when grouping by date). Optionally restrict to `providers`."""
         with session_scope(self._session_factory) as session:
             costs = repo.list_costs(session, start_date=start_date, end_date=end_date)
             resources = repo.list_resources(session)
+
+        if providers:
+            costs = [c for c in costs if c.provider in providers]
 
         if not costs:
             return pd.DataFrame(columns=[group_by, "total_cost"])

@@ -18,7 +18,7 @@ dependencies = [
     "PyYAML>=6.0",
     "SQLAlchemy>=2.0",
     "typer>=0.9",
-    "streamlit>=1.30",
+    "streamlit>=1.50",
     "plotly>=5.18",
 ]
 
