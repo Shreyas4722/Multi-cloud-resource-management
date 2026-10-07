@@ -1,0 +1,129 @@
+# CloudLens configuration.
+#
+# Copy this file to config.yaml (or run `cloudlens init`) and edit the values
+# for your environment. Every field below is read by cloudlens/config.py.
+
+# When true, the "demo" provider is used to generate realistic sample data
+# for AWS, Azure and GCP with no cloud credentials required. Turn this off
+# once you've configured real providers below.
+demo_mode: true
+
+# Where the SQLite database file is stored. Created automatically on first sync.
+database:
+  path: "cloudlens.db"
+
+providers:
+  # --- AWS -------------------------------------------------------------
+  aws:
+    enabled: false
+    # Regions to scan for EC2 instances and EBS volumes.
+    regions: ["us-east-1", "us-west-2"]
+    # "csv" reads an AWS Cost and Usage Report export (no API cost). This is
+    # the default because Cost Explorer API calls are billed per request.
+    # "cost_explorer" calls the Cost Explorer API directly instead.
+    cost_source: "csv"
+    cur_csv_path: "sample_data/aws_cur.csv"
+    account_id: "123456789012"
+
+  # --- Azure -------------------------------------------------------------
+  # Requires two CSV exports: a Cost Management export and a resource
+  # inventory export. Column names differ across Azure export formats, so
+  # they're mapped explicitly below.
+  azure:
+    enabled: false
+    cost_csv_path: "sample_data/azure_costs.csv"
+    inventory_csv_path: "sample_data/azure_inventory.csv"
+    account_id: "azure-subscription-id"
+    column_mapping:
+      cost:
+        date: "UsageDate"
+        amount: "Cost"
+        service: "ServiceName"
+        resource_id: "ResourceId"
+        project: "ResourceGroup"
+        currency: "Currency"
+      inventory:
+        id: "ResourceId"
+        type: "ResourceType"
+        region: "Location"
+        state: "PowerState"
+        size: "Size"
+        tags: "Tags"
+        created_at: "CreatedTime"
+
+  # --- GCP -----------------------------------------------------------------
+  # Same pattern as Azure: a billing export CSV plus a resource inventory CSV.
+  gcp:
+    enabled: false
+    cost_csv_path: "sample_data/gcp_costs.csv"
+    inventory_csv_path: "sample_data/gcp_inventory.csv"
+    account_id: "gcp-project-id"
+    column_mapping:
+      cost:
+        date: "usage_start_date"
+        amount: "cost"
+        service: "service_description"
+        resource_id: "resource_name"
+        project: "project_id"
+        currency: "currency"
+      inventory:
+        id: "resource_name"
+        type: "resource_type"
+        region: "zone"
+        state: "status"
+        size: "machine_type"
+        tags: "labels"
+        created_at: "creation_timestamp"
+
+  # --- Demo ----------------------------------------------------------------
+  demo:
+    enabled: true
+    seed: 42
+    resource_count: 72
+
+# Optimization rule thresholds. Every rule can be disabled independently.
+# `params` values are consumed by the matching rule file in cloudlens/rules/.
+rules:
+  idle_compute:
+    enabled: true
+    params:
+      avg_cpu_threshold_percent: 5
+      period_days: 7
+  unattached_storage:
+    enabled: true
+    params: {}
+  oversized_instance:
+    enabled: true
+    params:
+      avg_cpu_threshold_percent: 20
+      max_cpu_threshold_percent: 40
+  untagged_resource:
+    enabled: true
+    params: {}
+  stopped_with_storage:
+    enabled: true
+    params: {}
+
+# Tags every resource is expected to carry. Resources missing any of these
+# trigger the untagged_resource rule.
+required_tags:
+  - project
+  - owner
+  - environment
+
+# Per-project monthly budgets. alert_thresholds are percentages of
+# monthly_limit at which a BudgetAlert is raised (defaults: 50/80/100).
+budgets:
+  - project: "web-app"
+    monthly_limit: 5000
+    alert_thresholds: [50, 80, 100]
+  - project: "data-platform"
+    monthly_limit: 8000
+    alert_thresholds: [50, 80, 100]
+  - project: "internal-tools"
+    monthly_limit: 1500
+    alert_thresholds: [50, 80, 100]
+
+# Optional: budget alerts are POSTed as JSON to this URL if set. Leave null
+# to only use the console notifier.
+webhook_url: null
