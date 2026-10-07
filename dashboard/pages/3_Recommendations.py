@@ -41,7 +41,7 @@ rule_ids = sorted({r.rule_id for r in recommendations})
 severities = sorted({r.severity.value for r in recommendations})
 rule_filter = col1.multiselect("Rule", rule_ids, default=rule_ids)
 severity_filter = col2.multiselect("Severity", severities, default=severities)
-min_saving = col3.number_input("Minimum monthly saving ($)", min_value=0.0, value=0.0, step=10.0)
+min_saving = col3.number_input("Minimum monthly saving (₹)", min_value=0.0, value=0.0, step=10.0)
 
 filtered = [
     r

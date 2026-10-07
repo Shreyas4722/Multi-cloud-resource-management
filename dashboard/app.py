@@ -55,8 +55,8 @@ def main() -> None:
     total_alerts = sum(len(s.alerts) for s in budget_statuses)
 
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Month-to-Date Spend", f"${total_spend:,.0f}")
-    col2.metric("Potential Monthly Savings", f"${total_savings:,.0f}")
+    col1.metric("Month-to-Date Spend", f"₹{total_spend:,.0f}")
+    col2.metric("Potential Monthly Savings", f"₹{total_savings:,.0f}")
     col3.metric("Open Recommendations", f"{len(recommendations)}")
     col4.metric("Active Budget Alerts", f"{total_alerts}")
 
@@ -66,7 +66,7 @@ def main() -> None:
     else:
         cols = st.columns(len(provider_costs))
         for col, (_, row) in zip(cols, provider_costs.iterrows()):
-            col.metric(row["provider"].upper(), f"${row['total_cost']:,.0f}")
+            col.metric(row["provider"].upper(), f"₹{row['total_cost']:,.0f}")
 
     st.caption(
         "All figures come from the CloudLens public API (`get_cost_summary`, "

@@ -39,25 +39,25 @@ for status in statuses:
             progress = min(status.percent_used / 100, 1.0)
             st.progress(progress)
             st.caption(
-                f"${status.spent:,.2f} spent of ${status.monthly_limit:,.2f} "
+                f"₹{status.spent:,.2f} spent of ₹{status.monthly_limit:,.2f} "
                 f"({status.percent_used:.1f}%) this month ({status.month})"
             )
         with col2:
             st.metric(
                 "Forecast (month end)",
-                f"${status.forecast_month_end:,.2f}",
+                f"₹{status.forecast_month_end:,.2f}",
                 delta=f"{status.forecast_month_end - status.monthly_limit:,.2f} vs limit",
                 delta_color="inverse",
             )
 
         if status.forecast_exceeds_budget:
-            st.error(f"Forecast to exceed budget by ${status.forecast_month_end - status.monthly_limit:,.2f}.")
+            st.error(f"Forecast to exceed budget by ₹{status.forecast_month_end - status.monthly_limit:,.2f}.")
 
         if status.alerts:
             for alert in sorted(status.alerts, key=lambda a: a.threshold_crossed):
                 st.warning(
                     f"Crossed {alert.threshold_crossed}% threshold: "
-                    f"${alert.spent:,.2f} / ${alert.limit:,.2f} ({alert.percent_used:.1f}%)"
+                    f"₹{alert.spent:,.2f} / ₹{alert.limit:,.2f} ({alert.percent_used:.1f}%)"
                 )
         else:
             st.caption("No thresholds crossed yet this month.")
