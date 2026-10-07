@@ -108,15 +108,6 @@ def render_sidebar_filters() -> dict:
     return {"providers": providers, "start_date": date_range[0], "end_date": date_range[1]}
 
 
-def show_demo_mode_banner() -> None:
-    cl = get_cloudlens()
-    if cl.config.demo_mode:
-        st.info(
-            "**Demo mode** -- showing generated sample data. No cloud credentials are used. "
-            "Disable `demo_mode` in config.yaml to connect real providers."
-        )
-
-
 def show_empty_state() -> None:
     st.warning("No data yet. Run a sync to fetch resources and costs.")
     if st.button("Run sync + analyze now", type="primary"):
@@ -126,4 +117,3 @@ def show_empty_state() -> None:
 
 def page_header(title: str, icon: str = "") -> None:
     st.title(f"{icon} {title}".strip())
-    show_demo_mode_banner()
