@@ -68,11 +68,7 @@ def main() -> None:
         for col, (_, row) in zip(cols, provider_costs.iterrows()):
             col.metric(row["provider"].upper(), f"₹{row['total_cost']:,.0f}")
 
-    st.caption(
-        "All figures come from the CloudLens public API (`get_cost_summary`, "
-        "`get_recommendations`, `get_budget_status`). Instance/storage prices used "
-        "for savings estimates are approximate reference values, not live pricing."
-    )
+    
 
 
 main()
